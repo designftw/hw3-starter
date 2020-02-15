@@ -1,2 +1,3 @@
-# hw3-starter
-HW3 starter repo
+# Assignment 3
+
+My Kerberos username is ...
