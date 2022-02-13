@@ -1,3 +1,0 @@
-# Assignment 3
-
-My Kerberos username is ...
