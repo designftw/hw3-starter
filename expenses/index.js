@@ -5,6 +5,28 @@ globalThis.app = createApp({
 		expenses: []
 	},
 
+	methods: {
+		/**
+		 * Currency convert function stub.
+		 * In a real app, you would use an API to get the latest exchange rates,
+		 * and we'd need to support all currency codes, not just EUR, USD and GBP.
+		 * However, for the purposes of this assignment, this is fine.
+		 * @param {"EUR" | "USD" | "GBP"} from - Currency code to convert from
+		 * @param {"EUR" | "USD" | "GBP"} to - Currency code to convert to
+		 * @param {number} amount - Amount to convert
+		 * @returns {number} Converted amount
+		 */
+		currencyConvert(from, to, amount) {
+			const rates = {
+				USD: 1,
+				EUR: 0.99,
+				GBP: 0.85
+			};
+
+			return amount * rates[to] / rates[from];
+		}
+	},
+
 	computed: {
 		total_balance () {
 			let total = 0;
