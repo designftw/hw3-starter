@@ -1,24 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Expenses</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Expenses</title>
+        <script type="importmap">
+            {
+                "imports": {
+                    "vue": "https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.esm-browser.js",
+                    "@graffiti-garden/implementation-local": "https://cdn.jsdelivr.net/npm/@graffiti-garden/implementation-local@0.4.1/dist/index.browser.js",
+                    "@graffiti-garden/wrapper-vue": "https://cdn.jsdelivr.net/npm/@graffiti-garden/wrapper-vue@0.3.0/dist/plugin.mjs",
+                    "@graffiti-garden/wrapper-vue-personal-data": "https://cdn.jsdelivr.net/npm/@graffiti-garden/wrapper-vue-personal-data@0.0.3/dist/plugin.mjs"
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="app">
+            <!-- Basic authentication UI -->
+            <!-- Feel free to change as needed -->
+            <header>
+                <span v-if="$graffitiSession.value">
+                    Logged in as {{ $graffitiSession.value.actor }}
+                    <button @click="$graffiti.logout($graffitiSession.value)">
+                        Log out
+                    </button>
+                </span>
+                <button v-else @click="$graffiti.login()">Log in</button>
+            </header>
 
-<div id="app">
-	<!-- Replace hw3-starter below with your repo name (hw3-yourusername) so you can save!  -->
-	<ma-data v-model="expenses" src="https://github.com/designftw/hw3-starter/expenses/data.json"></ma-data>
+            <!-- Button to save data -->
+            <!-- Feel free to change as needed -->
+            <graffiti-personal-data
+                v-if="$graffitiSession.value"
+                :session="$graffitiSession.value"
+                v-model="myData"
+                name="my-expense-data"
+                v-slot="{ save }"
+            >
+                <button @click="save()">Save</button>
+            </graffiti-personal-data>
 
-	<!-- App UI here -->
+            <!-- App UI here -->
 
-	<!-- Delete this line when you write your actual UI -->
-	{{ expenses.length }} expenses loaded.
-</div>
+            <!-- Delete this line when you write your actual UI -->
+            {{ myData.expenses.length }} expenses loaded.
+        </div>
 
-<script src="index.js" type="module"></script>
-
-</body>
+        <script src="index.js" type="module"></script>
+    </body>
 </html>
